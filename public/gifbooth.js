@@ -167,4 +167,6 @@ function changeFilter(e) {
 
 function findRemotes() {
     document.querySelector('#remoteVideos video').addEventListener('click', onClick, false);
+    video = document.querySelector('#remoteVideos video');
+    console.log("video", video)
 }
