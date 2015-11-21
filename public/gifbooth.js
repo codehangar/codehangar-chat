@@ -8,8 +8,10 @@ var hdConstraints = {
         mandatory: {
             // minWidth: 1280,
             // minHeight: 460
-            minWidth: 600,
-            minHeight: 400
+            minWidth: 300,
+            minHeight: 200,
+            maxWidth: 300,
+            maxHeight: 200
         }
     }
 };
@@ -81,7 +83,7 @@ function gifMe(e) {
         document.body.appendChild(animatedImage);
     });
 
-    var maxShots = 5;
+    var maxShots = 10;
 
     function recordGif(i) {
         setTimeout(function() {
@@ -94,7 +96,7 @@ function gifMe(e) {
                 document.querySelector('#countdown').textContent = '';
                 done();
             }
-        }, 200);
+        }, 100);
     }
 
     recordGif(0);
@@ -118,7 +120,7 @@ function gifMe(e) {
 
             // add an image element
             gif.addFrame(canvas, {
-                delay: 200,
+                delay: 100,
                 copy: true
             });
         }
