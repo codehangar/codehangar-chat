@@ -1,22 +1,59 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script src="latest-v2.js"></script> 
-        <style>
-            #remoteVideos video {
-                height: 150px;
-            }
-            #localVideo {
-                height: 150px;
-            }
-        </style>
-    </head>
-    <body>
-        <video id="localVideo"></video>
-        <div id="remoteVideos"></div>
-    </body>
-</html>
 
+<head>
+    <title>GIF Booth</title>
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="cssgram.min.css">
+    <script src='gifshot.min.js'></script>
+    <script src='gif.js'></script>
+    <script src="latest-v2.js"></script>
+    <style>
+    #remoteVideos video {
+        height: 150px;
+    }
+    
+    #localVideo {
+        height: 150px;
+    }
+    </style>
+    <style>
+    video {
+        width: 307px;
+        height: 250px;
+        background: rgba(255, 255, 255, 0.5);
+        border: 1px solid #ccc;
+    }
+    
+    .grayscale {
+        +filter: grayscale(1);
+    }
+    
+    .sepia {
+        +filter: sepia(1);
+    }
+    
+    .blur {
+        +filter: blur(3px);
+    }
+    </style>
+</head>
+
+<body>
+    <video id="localVideo" autoplay></video>
+    <button onclick="findRemotes()">Detect remotes</button>
+    <div id="remoteVideos"></div>
+    <hr />
+    <h1>Gif Booth</h1>
+    <button onclick="done()">Done</button>
+    <canvas style="display:none; height: 200px; width:auto"></canvas>
+    <!-- <video autoplay></video> -->
+    <img src="">
+    <script src='gif.worker.js'></script>
+    <script src='gifbooth.js'></script>
+</body>
+
+</html>
 <script>
 var webrtc = new SimpleWebRTC({
     // the id/element dom element that will hold "our" video
@@ -28,7 +65,7 @@ var webrtc = new SimpleWebRTC({
     url: 'http://signalserver.herokuapp.com'
 });
 // we have to wait until it's ready
-webrtc.on('readyToCall', function () {
+webrtc.on('readyToCall', function() {
     // you can name it anything
     webrtc.joinRoom('your awesome room name');
 });
