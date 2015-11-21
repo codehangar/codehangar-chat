@@ -43,22 +43,6 @@ function errorCallback(obj) {
 
 navigator.webkitGetUserMedia(hdConstraints, successCallback, errorCallback);
 
-var gif = new GIF({
-    workers: 2,
-    quality: 0,
-    width: w,
-    height: h
-});
-
-gif.on('finished', function(blob) {
-    // window.open(URL.createObjectURL(blob));
-    var image = URL.createObjectURL(blob),
-        animatedImage = document.createElement('img');
-    animatedImage.src = image;
-    document.body.appendChild(animatedImage);
-});
-
-
 // Loads a testing overlay image
 var img = new Image;
 img.onload = function() {
@@ -67,67 +51,111 @@ img.onload = function() {
 img.crossOrigin = "anonymous";
 img.src = 'http://img.lapseshot.com/images/i.imgur.com/JzQ3m4E.png';
 
-function snapshot(e) {
-    if (cameraStream) {
 
-        // Define the size of the rectangle that will be filled (basically the entire element)
-        console.log("w", w)
-        ctx.fillRect(0, 0, w, h);
-        // Grab the image from the video
-        ctx.drawImage(video, 0, 0, w, h);
-
-
-        // "image/webp" works in Chrome.
-        // Other browsers will fall back to image/png.
-        // document.querySelector('img').src = canvas.toDataURL('image/webp');
-
-        // draw overlay
-        ctx.drawImage(img, 0, 0, w, h);
-
-        // add an image element
-        gif.addFrame(canvas, {
-            delay: 50,
-            copy: true
-        });
-    }
-}
-
-function done() {
-    console.log("done")
-    gif.render();
-}
 
 
 function onClick(e) {
     console.log("e", e)
     console.log("e.target", e.target)
         // changeFilter(e);
-        // gifMe(e);
-    snapshot(e);
+        // gifShotMe(e);
+    gifMe(e);
 }
 
-function progressCallback(progress) {
-    console.log("progress", progress)
-}
 
 
 function gifMe(e) {
-    gifshot.createGIF({
-        gifWidth: e.srcElement.clientWidth,
-        gifHeight: e.srcElement.clientHeight,
-        cameraStream: cameraStream,
-        keepCameraOn: true,
-        interval: 0.1,
-        progressCallback: progressCallback
-    }, function(obj) {
-        console.log("obj", obj)
-        if (!obj.error) {
-            var image = obj.image,
-                animatedImage = document.createElement('img');
-            animatedImage.src = image;
-            document.body.appendChild(animatedImage);
-        }
+
+    var gif = new GIF({
+        workers: 2,
+        quality: 0,
+        width: w,
+        height: h
     });
+
+    gif.on('finished', function(blob) {
+        // window.open(URL.createObjectURL(blob));
+        var image = URL.createObjectURL(blob),
+            animatedImage = document.createElement('img');
+        animatedImage.src = image;
+        document.body.appendChild(animatedImage);
+    });
+
+    var maxShots = 5;
+
+    function recordGif(i) {
+        setTimeout(function() {
+            console.log("i", i)
+            snapshot();
+            if (i < maxShots) {
+                document.querySelector('#countdown').textContent = maxShots - i;
+                recordGif(i + 1);
+            } else {
+                document.querySelector('#countdown').textContent = '';
+                done();
+            }
+        }, 200);
+    }
+
+    recordGif(0);
+
+    function snapshot() {
+        if (cameraStream) {
+
+            // Define the size of the rectangle that will be filled (basically the entire element)
+            console.log("w", w)
+            ctx.fillRect(0, 0, w, h);
+            // Grab the image from the video
+            ctx.drawImage(video, 0, 0, w, h);
+
+
+            // "image/webp" works in Chrome.
+            // Other browsers will fall back to image/png.
+            // document.querySelector('img').src = canvas.toDataURL('image/webp');
+
+            // draw overlay
+            ctx.drawImage(img, 0, 0, w, h);
+
+            // add an image element
+            gif.addFrame(canvas, {
+                delay: 200,
+                copy: true
+            });
+        }
+
+    }
+
+    function done() {
+        console.log("done")
+        gif.render();
+    }
+}
+
+function gifShotMe(e) {
+    takeShot();
+
+    function progressCallback(progress) {
+        console.log("progress", progress)
+    }
+
+    function takeShot() {
+        gifshot.createGIF({
+            gifWidth: e.srcElement.clientWidth,
+            gifHeight: e.srcElement.clientHeight,
+            cameraStream: cameraStream,
+            keepCameraOn: true,
+            interval: 0.1,
+            progressCallback: progressCallback
+        }, function(obj) {
+            console.log("obj", obj)
+            if (!obj.error) {
+                var image = obj.image,
+                    animatedImage = document.createElement('img');
+                animatedImage.src = image;
+                document.body.appendChild(animatedImage);
+            }
+        });
+    }
 }
 
 
@@ -163,7 +191,7 @@ function changeFilter(e) {
     }
 }
 
-// document.querySelector('video').addEventListener('click', onClick, false);
+document.querySelector('video').addEventListener('click', onClick, false);
 
 function findRemotes() {
     document.querySelector('#remoteVideos video').addEventListener('click', onClick, false);
