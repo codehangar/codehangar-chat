@@ -1,11 +1,9 @@
 var express = require('express');
 var app = express();
+var port = parseInt(process.env.PORT || 3500)
 
 app.use(express.static(__dirname + '/public'));
 
-var server = app.listen(8888, function () {
-  var host = server.address().address;
-  var port = server.address().port;
+var server = app.listen(port, function () {
 
-  console.log('Example app listening at http://%s:%s', host, port);
 });
