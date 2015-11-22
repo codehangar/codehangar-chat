@@ -5,6 +5,7 @@
     <title>GIF Booth</title>
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="cssgram.min.css">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/camanjs/4.0.0/caman.full.min.js"></script>
     <script src='gifshot.min.js'></script>
     <script src='gif.js'></script>
     <script src="latest-v2.js"></script>
@@ -48,7 +49,7 @@
     <h1 id="countdown"></h1>
     <canvas style="display:none; height: 200px; width:auto"></canvas>
     <!-- <video autoplay></video> -->
-    <img src="">
+    <img src="" style="display:none;">
     <script src='gif.worker.js'></script>
     <script src='gifbooth.js'></script>
 </body>
@@ -65,10 +66,24 @@ var webrtc = new SimpleWebRTC({
     // dont ask for camera access
     autoRequestMedia: true,
     // dont negotiate media
+    // media: {
+    //     video: true,
+    //     audio: false
+    // },
     media: {
-        video: true,
-        audio: false
-    }
+        video: {
+            mandatory: {
+                // minWidth: 1280,
+                // minHeight: 460
+                minWidth: 600,
+                minHeight: 400
+                    // minWidth: 300,
+                    // minHeight: 200,
+                    // maxWidth: 600,
+                    // maxHeight: 400
+            }
+        }
+    },
     url: 'http://signalserver.herokuapp.com'
 });
 // we have to wait until it's ready

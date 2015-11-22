@@ -8,10 +8,12 @@ var hdConstraints = {
         mandatory: {
             // minWidth: 1280,
             // minHeight: 460
-            minWidth: 300,
-            minHeight: 200,
-            maxWidth: 300,
-            maxHeight: 200
+            minWidth: 500,
+            minHeight: 420,
+            // minWidth: 300,
+            // minHeight: 200,
+            // maxWidth: 600,
+            // maxHeight: 400
         }
     }
 };
@@ -55,19 +57,36 @@ img.src = 'http://img.lapseshot.com/images/i.imgur.com/JzQ3m4E.png';
 
 
 
+var audio1 = new Audio('beep-07.wav');
+var audio2 = new Audio('beep-09.wav');
 
 function onClick(e) {
-    console.log("e", e)
-    console.log("e.target", e.target)
-        // changeFilter(e);
-        // gifShotMe(e);
-    gifMe(e);
+
+    // changeFilter(e);
+    // gifShotMe(e);
+    countdown(4);
+
+    function countdown(count) {
+        setTimeout(function() {
+            if (count > 0) {
+                document.querySelector('#countdown').textContent = count;
+                if (count === 1) {
+                    audio2.play();
+                } else {
+                    audio1.play();
+                }
+                countdown(count - 1);
+            } else {
+                document.querySelector('#countdown').textContent = '';
+                gifMe(e);
+            }
+        }, 1000);
+    }
 }
 
 
 
 function gifMe(e) {
-
     var gif = new GIF({
         workers: 2,
         quality: 0,
@@ -83,11 +102,10 @@ function gifMe(e) {
         document.body.appendChild(animatedImage);
     });
 
-    var maxShots = 10;
+    var maxShots = 6;
 
     function recordGif(i) {
         setTimeout(function() {
-            console.log("i", i)
             snapshot();
             if (i < maxShots) {
                 document.querySelector('#countdown').textContent = maxShots - i;
@@ -100,12 +118,13 @@ function gifMe(e) {
     }
 
     recordGif(0);
+    var snaps = [];
+    var snapsBackwards = [];
 
     function snapshot() {
         if (cameraStream) {
 
             // Define the size of the rectangle that will be filled (basically the entire element)
-            console.log("w", w)
             ctx.fillRect(0, 0, w, h);
             // Grab the image from the video
             ctx.drawImage(video, 0, 0, w, h);
@@ -116,18 +135,48 @@ function gifMe(e) {
             // document.querySelector('img').src = canvas.toDataURL('image/webp');
 
             // draw overlay
-            ctx.drawImage(img, 0, 0, w, h);
+            // ctx.drawImage(img, 0, 0, w, h);
+
+            document.querySelector('img').src = canvas.toDataURL('image/webp');
+            // var imag = document.querySelector("img").src;
+            var imag = new Image;
+            imag.onload = function() {
+                // console.log("imag", imag)
+                snaps.push(imag);
+                snapsBackwards.push(imag);
+            };
+            imag.crossOrigin = "anonymous";
+            imag.src = document.querySelector("img").src;
+
+
+            // snaps.push(canvas.toDataURL('image/webp'));
+            // snapsBackwards.push(canvas.toDataURL('image/webp'));
+
 
             // add an image element
-            gif.addFrame(canvas, {
-                delay: 100,
-                copy: true
-            });
+            // gif.addFrame(canvas, {
+            //     delay: 100,
+            //     copy: true
+            // });
         }
 
     }
 
     function done() {
+        var length = snaps.length + snapsBackwards.length - 1;
+        snapsBackwards.reverse();
+        for (var i = 0; i < snaps.length; i++) {
+            gif.addFrame(snaps[i], {
+                delay: 100,
+                copy: true
+            });
+        }
+        for (var i = 0; i < snapsBackwards.length - 1; i++) {
+            gif.addFrame(snapsBackwards[i], {
+                delay: 100,
+                copy: true
+            });
+        }
         console.log("done")
         gif.render();
     }
