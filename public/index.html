@@ -17,14 +17,13 @@
     #localVideo {
         height: 150px;
     }
-    </style>
-    <style>
+    /*
     video {
         width: 307px;
         height: 250px;
         background: rgba(255, 255, 255, 0.5);
         border: 1px solid #ccc;
-    }
+    }*/
     
     .grayscale {
         +filter: grayscale(1);
@@ -45,12 +44,15 @@
     <button onclick="findRemotes()">Detect remotes</button>
     <div id="remoteVideos"></div>
     <hr />
-    <h1>Gif Booth</h1>
+    <h3>Uploads:</h3>
+    <div id="uploads"></div>
+    <hr />
+    <h3>Gif Booth</h3>
     <h1 id="countdown"></h1>
     <canvas style="display:none; height: 200px; width:auto"></canvas>
-    <!-- <video autoplay></video> -->
     <img src="" style="display:none;">
     <script src='gif.worker.js'></script>
+    <script src='s3Service.js'></script>
     <script src='gifbooth.js'></script>
 </body>
 

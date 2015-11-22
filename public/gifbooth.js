@@ -87,6 +87,13 @@ function onClick(e) {
 
 
 function gifMe(e) {
+
+    var frameCount = 6;
+    var frameRecordDelay = 100;
+    var framePlaybackDelay = 100;
+    var snaps = [];
+    var snapsBackwards = [];
+
     var gif = new GIF({
         workers: 2,
         quality: 0,
@@ -94,32 +101,20 @@ function gifMe(e) {
         height: h
     });
 
-    gif.on('finished', function(blob) {
-        // window.open(URL.createObjectURL(blob));
-        var image = URL.createObjectURL(blob),
-            animatedImage = document.createElement('img');
-        animatedImage.src = image;
-        document.body.appendChild(animatedImage);
-    });
-
-    var maxShots = 6;
+    recordGif(0);
 
     function recordGif(i) {
         setTimeout(function() {
             snapshot();
-            if (i < maxShots) {
-                document.querySelector('#countdown').textContent = maxShots - i;
+            if (i < frameCount) {
+                document.querySelector('#countdown').textContent = frameCount - i;
                 recordGif(i + 1);
             } else {
                 document.querySelector('#countdown').textContent = '';
                 done();
             }
-        }, 100);
+        }, frameRecordDelay);
     }
-
-    recordGif(0);
-    var snaps = [];
-    var snapsBackwards = [];
 
     function snapshot() {
         if (cameraStream) {
@@ -152,12 +147,6 @@ function gifMe(e) {
             // snaps.push(canvas.toDataURL('image/webp'));
             // snapsBackwards.push(canvas.toDataURL('image/webp'));
 
-
-            // add an image element
-            // gif.addFrame(canvas, {
-            //     delay: 100,
-            //     copy: true
-            // });
         }
 
     }
@@ -165,21 +154,38 @@ function gifMe(e) {
     function done() {
         var length = snaps.length + snapsBackwards.length - 1;
         snapsBackwards.reverse();
+
         for (var i = 0; i < snaps.length; i++) {
             gif.addFrame(snaps[i], {
-                delay: 100,
+                delay: framePlaybackDelay,
                 copy: true
             });
         }
         for (var i = 0; i < snapsBackwards.length - 1; i++) {
             gif.addFrame(snapsBackwards[i], {
-                delay: 100,
+                delay: framePlaybackDelay,
                 copy: true
             });
         }
-        console.log("done")
+
         gif.render();
     }
+
+    gif.on('finished', function(blob) {
+
+        // Display gif on page
+        var image = URL.createObjectURL(blob);
+        var animatedImage = document.createElement('img');
+        animatedImage.src = image;
+        document.body.appendChild(animatedImage);
+
+        // Convert blob to File and upload
+        var name = image.split('/').pop() + '.' + blob.type.split('/').pop();
+        var file = new File([blob], name, {
+            type: blob.type
+        });
+        s3Service.get_signed_request(file);
+    });
 }
 
 function gifShotMe(e) {
@@ -210,37 +216,6 @@ function gifShotMe(e) {
 }
 
 
-var idx = 0;
-var filters = [
-    // 'aden',
-    // 'reyes',
-    // 'perpetua',
-    'inkwell',
-    // 'earlybird',
-    // 'toaster',
-    // 'walden',
-    // 'hudson',
-    // 'gingham',
-    // 'mayfair',
-    // 'lofi',
-    // 'xpro2',
-    // '_1977',
-    // 'brooklyn',
-    // 'nashville',
-    // 'lark',
-    // 'moon',
-    ''
-];
-
-function changeFilter(e) {
-    console.log("e", e)
-    var el = e.target;
-    el.className = '';
-    var effect = filters[idx++ % filters.length]; // loop through filters.
-    if (effect) {
-        el.classList.add(effect);
-    }
-}
 
 document.querySelector('video').addEventListener('click', onClick, false);
 
