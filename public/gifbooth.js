@@ -56,13 +56,23 @@ img.crossOrigin = "anonymous";
 img.src = 'http://img.lapseshot.com/images/i.imgur.com/JzQ3m4E.png';
 
 
+// Loads Audio Beeps
+var audio1 = new Audio('audio/beep-07.wav');
+var audio2 = new Audio('audio/beep-09.wav');
 
-var audio1 = new Audio('beep-07.wav');
-var audio2 = new Audio('beep-09.wav');
+var gifMeSettings = {};
+
+function updateGifSettings() {
+    gifMeSettings.frameCount = parseInt(document.querySelector('#frameCount').value, 10);
+    gifMeSettings.frameRecordDelay = parseInt(document.querySelector('#frameRecordDelay').value, 10);
+    gifMeSettings.framePlaybackDelay = parseInt(document.querySelector('#framePlaybackDelay').value, 10);
+}
 
 function onClick(e) {
+    updateGifSettings();
+
     var enableCountdown = document.querySelector('#enableCountdown').checked;
-    console.log("enableCountdown", enableCountdown)
+
     if (enableCountdown) {
         countdown(4);
 
@@ -82,7 +92,6 @@ function onClick(e) {
                 }
             }, 1000);
         }
-
     } else {
         go();
     }
@@ -97,10 +106,6 @@ function onClick(e) {
 
 
 function gifMe(e) {
-
-    var frameCount = 6;
-    var frameRecordDelay = 100;
-    var framePlaybackDelay = 100;
     var snaps = [];
     var snapsBackwards = [];
 
@@ -116,14 +121,14 @@ function gifMe(e) {
     function recordGif(i) {
         setTimeout(function() {
             snapshot();
-            if (i < frameCount) {
-                document.querySelector('#countdown').textContent = frameCount - i;
+            if (i < gifMeSettings.frameCount) {
+                document.querySelector('#countdown').textContent = gifMeSettings.frameCount - i;
                 recordGif(i + 1);
             } else {
                 document.querySelector('#countdown').textContent = '';
                 done();
             }
-        }, frameRecordDelay);
+        }, gifMeSettings.frameRecordDelay);
     }
 
     function snapshot() {
@@ -167,13 +172,13 @@ function gifMe(e) {
 
         for (var i = 0; i < snaps.length; i++) {
             gif.addFrame(snaps[i], {
-                delay: framePlaybackDelay,
+                delay: gifMeSettings.framePlaybackDelay,
                 copy: true
             });
         }
         for (var i = 0; i < snapsBackwards.length - 1; i++) {
             gif.addFrame(snapsBackwards[i], {
-                delay: framePlaybackDelay,
+                delay: gifMeSettings.framePlaybackDelay,
                 copy: true
             });
         }

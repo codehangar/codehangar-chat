@@ -4,48 +4,28 @@
 <head>
     <title>GIF Booth</title>
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="cssgram.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/cssgram.min.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/camanjs/4.0.0/caman.full.min.js"></script>
-    <script src='gifshot.min.js'></script>
-    <script src='gif.js'></script>
-    <script src="latest-v2.js"></script>
-    <style>
-    #remoteVideos video {
-        height: 150px;
-    }
-    
-    #localVideo {
-        height: 150px;
-    }
-    /*
-    video {
-        width: 307px;
-        height: 250px;
-        background: rgba(255, 255, 255, 0.5);
-        border: 1px solid #ccc;
-    }*/
-    
-    .grayscale {
-        +filter: grayscale(1);
-    }
-    
-    .sepia {
-        +filter: sepia(1);
-    }
-    
-    .blur {
-        +filter: blur(3px);
-    }
-    </style>
+    <script src="vendor/gifshot.min.js"></script>
+    <script src="vendor/gif.js"></script>
+    <script src="vendor/latest-v2.js"></script>
 </head>
 
 <body>
     <video id="localVideo" autoplay></video>
+    <div id="remoteVideos"></div>
     <br />
     <label for="enableCountdown">Countdown:</label>
     <input id="enableCountdown" type="checkbox" checked="true" />
+    <label for="frameCount">frameCount:</label>
+    <input id="frameCount" type="number" value="6" />
+    <label for="frameRecordDelay">frameRecordDelay:</label>
+    <input id="frameRecordDelay" type="number" value="100" />
+    <label for="framePlaybackDelay">framePlaybackDelay:</label>
+    <input id="framePlaybackDelay" type="number" value="100" />
     <button onclick="findRemotes()">Detect remotes</button>
-    <div id="remoteVideos"></div>
     <hr />
     <h3>Uploads:</h3>
     <div id="uploads"></div>
@@ -54,9 +34,9 @@
     <h1 id="countdown"></h1>
     <canvas style="display:none; height: 200px; width:auto"></canvas>
     <img src="" style="display:none;">
-    <script src='gif.worker.js'></script>
-    <script src='s3Service.js'></script>
-    <script src='gifbooth.js'></script>
+    <script src="vendor/gif.worker.js"></script>
+    <script src="s3Service.js"></script>
+    <script src="gifbooth.js"></script>
 </body>
 
 </html>

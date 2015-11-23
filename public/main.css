@@ -1,0 +1,7 @@
+#remoteVideos {
+    display: inline-block;
+}
+
+video {
+    height: 150px;
+}
