@@ -28,17 +28,19 @@ function successCallback(stream) {
     video.src = window.URL.createObjectURL(stream);
 
 
-    video.onloadedmetadata = function() {
-        // Calculate the ratio of the video's width to height
-        ratio = video.videoWidth / video.videoHeight;
-        // Define the required width as 100 pixels smaller than the actual video's width
-        w = video.videoWidth - 100;
-        // Calculate the height based on the video's width and the ratio
-        h = parseInt(w / ratio, 10);
-        // Set the canvas width and height to the values just calculated
-        canvas.width = w;
-        canvas.height = h;
-    };
+    video.onloadedmetadata = setVideoSize;
+}
+
+function setVideoSize() {
+    // Calculate the ratio of the video's width to height
+    ratio = video.videoWidth / video.videoHeight;
+    // Define the required width as 100 pixels smaller than the actual video's width
+    w = video.videoWidth - 100;
+    // Calculate the height based on the video's width and the ratio
+    h = parseInt(w / ratio, 10);
+    // Set the canvas width and height to the values just calculated
+    canvas.width = w;
+    canvas.height = h;
 }
 
 function errorCallback(obj) {
@@ -69,6 +71,8 @@ function updateGifSettings() {
 }
 
 function onClick(e) {
+    video = e.srcElement;
+    setVideoSize();
     updateGifSettings();
 
     var enableCountdown = document.querySelector('#enableCountdown').checked;
@@ -235,7 +239,9 @@ function gifShotMe(e) {
 document.querySelector('video').addEventListener('click', onClick, false);
 
 function findRemotes() {
-    document.querySelector('#remoteVideos video').addEventListener('click', onClick, false);
-    video = document.querySelector('#remoteVideos video');
-    console.log("video", video)
+    var videoElems = document.querySelectorAll('#remoteVideos video');
+    for (var i = 0; i < videoElems.length; i++) {
+        console.log("videoElems[i]", videoElems[i]);
+        videoElems[i].addEventListener('click', onClick, false);
+    }
 }
