@@ -5,3 +5,7 @@
 video {
     height: 150px;
 }
+
+#uploads a {
+	display: block;
+}
