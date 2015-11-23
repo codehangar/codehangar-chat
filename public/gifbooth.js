@@ -61,26 +61,36 @@ var audio1 = new Audio('beep-07.wav');
 var audio2 = new Audio('beep-09.wav');
 
 function onClick(e) {
+    var enableCountdown = document.querySelector('#enableCountdown').checked;
+    console.log("enableCountdown", enableCountdown)
+    if (enableCountdown) {
+        countdown(4);
 
-    // changeFilter(e);
-    // gifShotMe(e);
-    countdown(4);
-
-    function countdown(count) {
-        setTimeout(function() {
-            if (count > 0) {
-                document.querySelector('#countdown').textContent = count;
-                if (count === 1) {
-                    audio2.play();
+        function countdown(count) {
+            setTimeout(function() {
+                if (count > 0) {
+                    document.querySelector('#countdown').textContent = count;
+                    if (count === 1) {
+                        audio2.play();
+                    } else {
+                        audio1.play();
+                    }
+                    countdown(count - 1);
                 } else {
-                    audio1.play();
+                    document.querySelector('#countdown').textContent = '';
+                    go();
                 }
-                countdown(count - 1);
-            } else {
-                document.querySelector('#countdown').textContent = '';
-                gifMe(e);
-            }
-        }, 1000);
+            }, 1000);
+        }
+
+    } else {
+        go();
+    }
+
+    function go() {
+        // changeFilter(e);
+        // gifShotMe(e);
+        gifMe(e);
     }
 }
 
