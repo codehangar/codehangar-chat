@@ -1,0 +1,11 @@
+#remoteVideos {
+    display: inline-block;
+}
+
+video {
+    height: 150px;
+}
+
+#uploads a {
+	display: block;
+}
