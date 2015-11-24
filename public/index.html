@@ -5,12 +5,12 @@
     <title>GIF Booth</title>
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/cssgram.min.css">
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/cssgram.min.css">
+    <link rel="stylesheet" type="text/css" href="/main.css">
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/camanjs/4.0.0/caman.full.min.js"></script>
-    <script src="vendor/gifshot.min.js"></script>
-    <script src="vendor/gif.js"></script>
-    <script src="vendor/latest-v2.js"></script>
+    <script src="/vendor/gifshot.min.js"></script>
+    <script src="/vendor/gif.js"></script>
+    <script src="/vendor/latest-v2.js"></script>
 </head>
 
 <body>
@@ -35,8 +35,8 @@
     <canvas style="display:none; height: 200px; width:auto"></canvas>
     <img src="" style="display:none;">
     <!-- Scripts -->
-    <script src="s3Service.js"></script>
-    <script src="gifbooth.js"></script>
+    <script src="/s3Service.js"></script>
+    <script src="/gifbooth.js"></script>
 </body>
 
 </html>
@@ -70,11 +70,12 @@ var webrtc = new SimpleWebRTC({
         },
         audio: true
     },
-    url: 'http://signalserver.herokuapp.com'
+    url: 'localhost:8888'
 });
 // we have to wait until it's ready
 webrtc.on('readyToCall', function() {
     // you can name it anything
-    webrtc.joinRoom('your awesome room name');
+    var roomName = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
+    webrtc.joinRoom(roomName);
 });
 </script>

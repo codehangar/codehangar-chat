@@ -37,6 +37,10 @@ var uploading = multer({
 
 app.use(express.static(__dirname + '/public'));
 
+app.get('/channel/*', function(req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
+
 app.post('/pictures/upload', uploading.single('image'), function(req, res) {
     // app.post('/pictures/upload', function(req, res) {
     console.log(req.body) // form fields
