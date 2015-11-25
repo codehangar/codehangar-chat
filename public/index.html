@@ -16,6 +16,10 @@
 </head>
 
 <body>
+    <!-- CANVAS IS USED FOR SNAPS -->
+    <canvas style="display:none; height: 200px; width:auto"></canvas>
+    <!-- IMG IS USED FOR TESTING - TO BE DELETED -->
+    <img src="" style="display:none;">
     <div class="container-fluid">
         <!-- HEADER BAR -->
         <div class="row">
@@ -24,6 +28,7 @@
                     <div class="navbar-header">
                         <a class="navbar-brand" href="#">gifchat.me</a>
                     </div>
+                    <strong><p id="countdown" class="lead pull-right"></p></strong>
                 </div>
             </nav>
         </div>
@@ -83,9 +88,13 @@
     <div id="uploads"></div>
     <hr />
     <h3>Gif Booth</h3>
-    <h1 id="countdown"></h1>
-    <canvas style="display:none; height: 200px; width:auto"></canvas>
-    <img src="" style="display:none;">
+    <!--Pattern HTML-->
+    <ul class="g" id="imgGrid">
+    </ul>
+    </div>
+    <!--End Pattern HTML-->
+</div>
+    
     <!-- Scripts -->
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->

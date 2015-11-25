@@ -200,8 +200,15 @@ function gifMe(e) {
         // Display gif on page
         var image = URL.createObjectURL(blob);
         var animatedImage = document.createElement('img');
+        var li = document.createElement('li');
+        var grid = document.getElementById('imgGrid');
         animatedImage.src = image;
-        document.body.appendChild(animatedImage);
+        grid.insertBefore( li, grid.firstChild );
+        li.appendChild(animatedImage);
+        // grid.appendChild(li);
+         // += '<li>'+animatedImage+'</li>';
+
+        console.log('grid',grid.innerHTML)
 
         // Convert blob to File and upload
         var name = image.split('/').pop() + '.' + blob.type.split('/').pop();
