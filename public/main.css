@@ -9,3 +9,65 @@ video {
 #uploads a {
 	display: block;
 }
+
+
+/*********************
+
+CSS NAMING CONVENTIONS from BEM https://en.bem.info/
+
+EXAMPLES:
+
+.block {}
+.block__element {}
+.block--modifier {}
+
+.site-search {} - Block 
+.site-search__field {} - Element 
+.site-search--full {} - Modifier 
+
+.person {}
+.person__hand {}
+.person--female {}
+.person--female__hand {}
+.person__hand--left {}
+
+**********************/
+
+
+/*********************
+START VIDEO FEEDS
+**********************/
+
+.video-feeds{
+	height:200px;
+	white-space:nowrap;
+	overflow-x:scroll;
+	overflow-y: hidden;
+}
+.video-feeds__feed{
+	height: 150px;
+}
+.video-feeds__feed--selected{}
+
+/*********************
+END VIDEO FEEDS
+**********************/
+
+/*********************
+START GIF CONTROLS
+**********************/
+.gif-controls .slider.slider-horizontal{width:100%;}
+.gif-controls__countdown-toggle{}
+.gif-controls__frame-count-slider .slider{
+	display:block;
+}
+.gif-controls__frame-record-delay .slider{
+	display:block;
+}
+.gif-controls__frame-playback-delay .slider{
+	display:block;
+}
+.gif-controls__frame-count-slider{}
+/*********************
+END VIDEO FEEDS
+**********************/

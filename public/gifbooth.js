@@ -3,6 +3,8 @@ var canvas = document.querySelector('canvas');
 var ctx = canvas.getContext('2d');
 var cameraStream;
 
+console.log(sliderVal1);
+
 var hdConstraints = {
     video: {
         mandatory: {
@@ -65,12 +67,13 @@ var audio2 = new Audio('audio/beep-09.wav');
 var gifMeSettings = {};
 
 function updateGifSettings() {
-    gifMeSettings.frameCount = parseInt(document.querySelector('#frameCount').value, 10);
-    gifMeSettings.frameRecordDelay = parseInt(document.querySelector('#frameRecordDelay').value, 10);
-    gifMeSettings.framePlaybackDelay = parseInt(document.querySelector('#framePlaybackDelay').value, 10);
+    gifMeSettings.frameCount = sliderVal1;
+    gifMeSettings.frameRecordDelay = sliderVal2;
+    gifMeSettings.framePlaybackDelay = sliderVal3;
 }
 
 function onClick(e) {
+    console.log('video click');
     video = e.srcElement;
     setVideoSize();
     updateGifSettings();
@@ -101,6 +104,7 @@ function onClick(e) {
     }
 
     function go() {
+        console.log('go')
         // changeFilter(e);
         // gifShotMe(e);
         gifMe(e);
@@ -123,6 +127,7 @@ function gifMe(e) {
     recordGif(0);
 
     function recordGif(i) {
+        console.log('record');
         setTimeout(function() {
             snapshot();
             if (i < gifMeSettings.frameCount) {
