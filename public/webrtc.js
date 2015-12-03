@@ -28,7 +28,7 @@ var webrtc = new SimpleWebRTC({
         },
         audio: true
     },
-    url: 'http://signalserver.herokuapp.com'
+    url: 'https://signalserver.herokuapp.com'
 });
 // we have to wait until it's ready
 webrtc.on('readyToCall', function() {
