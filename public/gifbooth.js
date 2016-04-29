@@ -57,7 +57,7 @@ img.onload = function() {
     console.log("img", img)
 };
 img.crossOrigin = "anonymous";
-img.src = 'https://img05.deviantart.net/7848/i/2014/075/7/d/twitch_overlay_by_vapor33_nobg_by_v_a_p_o_r-d7ag3u5.png';
+img.src = '/images/twitch_overlay_by_vapor33_nobg_by_v_a_p_o_r-d7ag3u5.png';
 
 
 // Loads Audio Beeps
