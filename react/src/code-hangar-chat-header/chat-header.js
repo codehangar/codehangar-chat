@@ -1,7 +1,9 @@
+/**
+ * Created by Valetery on 3/5/2017.
+ */
 import React, { Component }from 'react';
 
-class Header extends Component {
-
+class ChatHeader extends Component {
     render() {
         return (
             <div className="row">
@@ -10,7 +12,7 @@ class Header extends Component {
                         <div className="navbar-header">
                             <a className="navbar-brand" href="#">gifchat.me</a>
                         </div>
-                        <strong><p id="countdown" className="lead pull-right"></p></strong>
+                        <strong><p id="countdown" className="lead pull-right">asdf</p></strong>
                     </div>
                 </nav>
             </div>
@@ -18,4 +20,4 @@ class Header extends Component {
     }
 }
 
-export default Header;
+export default ChatHeader;

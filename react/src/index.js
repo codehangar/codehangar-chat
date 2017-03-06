@@ -23,16 +23,3 @@ render(
     document.getElementById('root')
 );
 
-if (module.hot) {
-    module.hot.accept('./root/root', () => {
-        const NewRoot = require('./root/root').default;
-        render(
-            <AppContainer>
-              <MuiThemeProvider>
-                <NewRoot store={store} history={history} />
-              </MuiThemeProvider>
-            </AppContainer>,
-            document.getElementById('root')
-        );
-    });
-}

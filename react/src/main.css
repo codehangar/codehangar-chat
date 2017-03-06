@@ -1,0 +1,146 @@
+img, object, video {
+    max-width: 100%;
+    border: 0;
+}
+ol, ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#remoteVideos {
+    display: inline-block;
+}
+
+video {
+    height: 150px;
+}
+
+#uploads a {
+	display: block;
+}
+
+
+/*********************
+
+CSS NAMING CONVENTIONS from BEM https://en.bem.info/
+
+EXAMPLES:
+
+.block {}
+.block__element {}
+.block--modifier {}
+
+.site-search {} - Block 
+.site-search__field {} - Element 
+.site-search--full {} - Modifier 
+
+.person {}
+.person__hand {}
+.person--female {}
+.person--female__hand {}
+.person__hand--left {}
+
+**********************/
+
+
+/*********************
+START VIDEO FEEDS
+**********************/
+
+.video-feeds{
+	height:200px;
+	white-space:nowrap;
+	overflow-x:scroll;
+	overflow-y: hidden;
+}
+.video-feeds__feed{
+	height: 150px;
+}
+.video-feeds__feed--selected{}
+
+/*********************
+END VIDEO FEEDS
+**********************/
+
+/*********************
+START GIF CONTROLS
+**********************/
+.gif-controls .slider.slider-horizontal{width:100%;}
+.gif-controls__countdown-toggle{}
+.gif-controls__frame-count-slider .slider{
+	display:block;
+}
+.gif-controls__frame-record-delay .slider{
+	display:block;
+}
+.gif-controls__frame-playback-delay .slider{
+	display:block;
+}
+.gif-controls__frame-count-slider{}
+/*********************
+END VIDEO FEEDS
+**********************/
+
+
+
+.g {
+  		padding: 0.25em;
+			overflow: hidden;
+		}
+		.g li {
+			float: left;
+			width: 50%;
+			padding: 0;
+		}
+		.g img {
+			display: block;
+		}
+		.g li:nth-child(odd) {
+			clear: left;
+		}
+	
+		@media screen and (min-width: 40em) {
+			.g li {
+		    	width: 33.3333333333333333%; 
+		  	}
+		  	.g li:nth-child(3n+1) {
+		  		clear: left;
+		  	}
+		  	.g li:nth-child(odd) {
+				clear: none;
+			}
+		}
+		@media screen and (min-width: 72em) {
+			.g li {
+		    	width: 25%; 
+		  	}
+		  	.g li:nth-child(4n+1) {
+		  		clear: left;
+		  	}
+		  	.g li:nth-child(3n+1) {
+				clear: none;
+			}
+		}
+		/*@media screen and (min-width: 72em) {
+			.g li {
+		    	width: 20%; 
+		  	}
+		  	.g li:nth-child(5n+1) {
+		  		clear: left;
+		  	}
+		  	.g li:nth-child(4n+1) {
+				clear: none;
+			}
+		}
+		@media screen and (min-width: 90em) {
+			.g li {
+		    	width: 16.666666666%; 
+		  	}
+		  	.g li:nth-child(6n+1) {
+		  		clear: left;
+		  	}
+		  	.g li:nth-child(5n+1) {
+				clear: none;
+			}
+		}*/

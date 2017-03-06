@@ -1,17 +1,19 @@
 import React, { PropTypes } from 'react';
 import './styles/main.scss';
-import { content } from './styles/main.scss';
 import Header from './header/header.js';
-import Footer from './footer/footer';
+import VideoFeed from './video/video-feed';
+import GifControl from './gif-controls/gif-controls';
 
-const App = ({ children }) =>
+const App = ({}) =>(
     <div>
         <Header/>
-        <div className={content}>
-            { children }
-        </div>
-        <Footer/>
-    </div>;
+        <VideoFeed/>
+        <GifControl/>
+        <h3>Uploads:</h3>
+        <div id="uploads"></div>
+        <hr />
+        <h3>Gif Booth</h3>
+    </div>);
 
 App.propTypes = {
     children: PropTypes.object
