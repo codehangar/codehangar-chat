@@ -25,6 +25,7 @@
     "gx": "^1.0.0-rc3",
     "material-ui": "^0.16.6",
     "react": "^15.0.2",
+    "react-bootstrap": "^0.30.7",
     "react-dom": "^15.0.2",
     "react-flexbox-grid": "^0.10.2",
     "react-hot-loader": "^3.0.0-beta.2",

@@ -3,27 +3,19 @@
  */
 import React from 'react';
 import {connect} from 'react-redux';
+import {Panel, ListGroup, ListGroupItem} from 'react-bootstrap';
 
 const gifControls = () => {
     return (
-        <div className="gif-controls panel panel-default">
-            <div className="panel-heading">
-                Control Panel
-            </div>
-            <div className="panel-body collapse" id="collapse">
-                <div className="row">
-                    <div className="col-md-4">
-                        {/* <!-- FRAME COUNT SLIDER -->*/}
-                    </div>
-                    <div className="col-md-4">
-                        {/* <!-- FRAME COUNT SLIDER -->*/}
-                    </div>
-                    <div className="col-md-4">
-                        {/* <!-- FRAME PLAYBACK SLIDER -->*/}
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Panel collapsible defaultExpanded header="Control Panel">
+            Control Panel
+            <ListGroup fill>
+                <ListGroupItem>Item 1</ListGroupItem>
+                <ListGroupItem>Item 2</ListGroupItem>
+                <ListGroupItem>&hellip;</ListGroupItem>
+            </ListGroup>
+            Some more panel content here.
+        </Panel>
     );
 };
 
