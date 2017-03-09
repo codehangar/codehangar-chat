@@ -1,12 +1,12 @@
 /**
  * Created by Valetery on 3/3/2017.
  */
-import React from 'react';
-import { connect } from 'react-redux';
-import { Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
+import React, { PropTypes } from 'react';
+import {connect} from 'react-redux';
+import {Panel, ListGroup, ListGroupItem} from 'react-bootstrap';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
 
-//working on sliders from library: 
+// working on sliders from library:
 // https://www.npmjs.com/package/react-bootstrap-slider
 class gifControls extends React.Component {
 
@@ -14,11 +14,16 @@ class gifControls extends React.Component {
         super(props);
         this.valueChanged = this.valueChanged.bind(this);
     }
+
+    valueChanged(event) {
+        this.props.onChange(this.props.value, event.target.value);
+    }
+
     render() {
         return (
             <Panel collapsible defaultExpanded header="Control Panel">
                 Control Panel
-            <ListGroup fill>
+                <ListGroup fill>
                     <ListGroupItem>
                         <ReactBootstrapSlider
                             value="3"
@@ -26,18 +31,18 @@ class gifControls extends React.Component {
                             max="10"
                             min="0"
                             orientation="vertical"
-                            reversed="true" />
+                            reversed="true"/>
                     </ListGroupItem>
                 </ListGroup>
-         
-        </Panel>
+
+            </Panel>
         );
     }
-
-    valueChanged(event) {
-        this.props.onChange(this.props.value, event.target.value);
-    }
-
 }
+
+gifControls.propTypes = {
+    value: PropTypes.string,
+    onChange: PropTypes.function
+};
 
 export default connect()(gifControls);
