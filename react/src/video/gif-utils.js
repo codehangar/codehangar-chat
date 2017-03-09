@@ -1,9 +1,9 @@
 /**
  * Created by cassandrawilcox on 3/9/17.
  */
-let video = document.querySelector('video');
-const canvas = document.querySelector('canvas');
-const ctx = canvas.getContext('2d');
+let video;
+let canvas;
+let ctx;
 let cameraStream;
 
 // Define some consts required later
@@ -11,9 +11,18 @@ let w;
 let h;
 // let ratio;
 
+const snaps = [];
+const snapsBackwards = [];
+
 // Loads Audio Beeps
 const audio1 = new Audio('audio/beep-07.wav');
 const audio2 = new Audio('audio/beep-09.wav');
+
+export function init() {
+    video = document.querySelector('video');
+    canvas  = document.querySelector('canvas');
+    ctx = canvas.getContext('2d');
+}
 
 const gifMeSettings = {
     frameCount: 5,
@@ -86,24 +95,41 @@ function snapshot() {
     }
 }
 
-function recordGif(i) {
+function done(gif) {
+    // const length = snaps.length + snapsBackwards.length - 1;
+    snapsBackwards.reverse();
+
+    for (let i = 0; i < snaps.length; i++) {
+        gif.addFrame(snaps[i], {
+            delay: gifMeSettings.framePlaybackDelay,
+            copy: true
+        });
+    }
+    for (let i = 0; i < snapsBackwards.length - 1; i++) {
+        gif.addFrame(snapsBackwards[i], {
+            delay: gifMeSettings.framePlaybackDelay,
+            copy: true
+        });
+    }
+
+    gif.render();
+}
+
+function recordGif(i, gif) {
     console.log('record');
     setTimeout(function() {
         snapshot();
         if (i < gifMeSettings.frameCount) {
             document.querySelector('#countdown').textContent = gifMeSettings.frameCount - i;
-            recordGif(i + 1);
+            recordGif(i + 1, gif);
         } else {
             document.querySelector('#countdown').textContent = '';
-            done();
+            done(gif);
         }
     }, gifMeSettings.frameRecordDelay);
 }
 
 function gifMe() {
-    const snaps = [];
-    const snapsBackwards = [];
-
     const gif = new GIF({
         workers: 2,
         quality: 0,
@@ -111,27 +137,8 @@ function gifMe() {
         height: h
     });
 
-    recordGif(0);
+    recordGif(0, gif);
 
-    // function done() {
-    //     // const length = snaps.length + snapsBackwards.length - 1;
-    //     snapsBackwards.reverse();
-    //
-    //     for (const i = 0; i < snaps.length; i++) {
-    //         gif.addFrame(snaps[i], {
-    //             delay: gifMeSettings.framePlaybackDelay,
-    //             copy: true
-    //         });
-    //     }
-    //     for (const i = 0; i < snapsBackwards.length - 1; i++) {
-    //         gif.addFrame(snapsBackwards[i], {
-    //             delay: gifMeSettings.framePlaybackDelay,
-    //             copy: true
-    //         });
-    //     }
-    //
-    //     gif.render();
-    // }
 
     gif.on('finished', function(blob) {
         // Display gif on page

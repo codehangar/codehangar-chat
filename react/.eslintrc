@@ -6,6 +6,7 @@
     "mocha": true
   },
   "globals": {
+    "GIF": true,
     "expect": true,
     "sinon": true,
     "__DEV__": true
